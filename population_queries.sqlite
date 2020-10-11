@@ -1,0 +1,63 @@
+--3--
+select count(*) as 'The Number of Countries in Africa per this list'
+from countries
+where continent = 'Africa';
+
+--4--
+with 'complete' as (select *
+from population_years
+left join countries
+on population_years.country_id=countries.id)
+select sum(complete.population) as 'Total Population in Oceania in 2005'
+from complete
+where complete.continent ='Oceania' and complete.year = 2005;
+
+--5--
+with 'complete' as (select *
+from population_years
+left join countries
+on population_years.country_id=countries.id)
+select avg(complete.population) as 'Average Population in South America in 2003'
+from complete
+where complete.continent ='South America' and complete.year = 2003;
+
+--6--
+with 'complete' as (select *
+from population_years
+left join countries
+on population_years.country_id=countries.id)
+select complete.name as 'Country with the smallest population' 
+from complete
+group by complete.name
+order by complete.population asc
+limit 1;
+
+--7--
+with 'complete' as (select *
+from population_years
+left join countries
+on population_years.country_id=countries.id)
+select avg(complete.population) as 'Average Population of Poland across the Range of Years'
+from complete
+where complete.name= 'Poland';
+
+--8--
+with 'complete' as (select *
+from population_years
+left join countries
+on population_years.country_id=countries.id)
+select complete.name as 'Countries with the word The in the name'
+from complete
+where complete.name like '%The%'
+group by complete.name;
+
+--9--
+with 'complete' as (select *
+from population_years
+left join countries
+on population_years.country_id=countries.id)
+select complete.continent, sum(complete.population) as '2010 Total Population per Continent'
+from complete
+group by complete.continent;
+
+
